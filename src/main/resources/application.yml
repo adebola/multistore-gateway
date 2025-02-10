@@ -1,0 +1,45 @@
+server:
+  port: 8080
+
+logging:
+  pattern:
+    console: "%green(%d{HH:mm:ss}) %yellow([%t]) %blue(%-5level) %magenta(%logger{36}) - %msg%n"
+  level:
+    org.springframework.web: DEBUG
+
+spring:
+  banner:
+    location: classpath:banner.txt
+  application:
+    name: mssc-pirate-parrot-gateway
+  threads:
+    virtual:
+      enabled: true
+
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods: "GET, POST, PUT, DELETE, OPTIONS"
+            allowedHeaders: "*"
+            allowCredentials: true
+        add-to-simple-url-handler-mapping: true
+      routes:
+        - id: product
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/product/**
+        - id: order
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/order/**
+        - id: communication
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/v1/communication/**
+        - id: security
+          uri: http://localhost:9000
+          predicates:
+            - Path=/api/v1/security/**
