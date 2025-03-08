@@ -39,7 +39,11 @@ spring:
           uri: http://localhost:8083
           predicates:
             - Path=/api/v1/communication/**
+        - id: user
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/v1/user/**,/api/v1/tenant/**, /api/v1/authority/**
         - id: security
           uri: http://localhost:9000
           predicates:
-            - Path=/api/v1/security/**
+            - Path=/auth/**

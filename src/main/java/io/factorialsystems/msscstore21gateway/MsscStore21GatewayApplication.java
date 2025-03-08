@@ -9,5 +9,4 @@ public class MsscStore21GatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(MsscStore21GatewayApplication.class, args);
     }
-
 }
